@@ -13,9 +13,8 @@ public class Wall : Building
         }
         
     }
-}
-[Serializable]
-public class Decor
-{
-    public GameObject[] decor;
+    public override void Setup()
+    {
+        base.Setup();
+    }
 }

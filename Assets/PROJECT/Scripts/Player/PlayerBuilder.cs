@@ -34,7 +34,7 @@ public class PlayerBuilder : MonoBehaviour
                     currentBuilding.transform.rotation = Quaternion.Euler(0,Mathf.Round(cameraTransform.eulerAngles.y / 15) * 15 + Mathf.Round(rawRotate * 10 / 15) * 15, 0);
                     var overlaping = Physics.OverlapBox(currentBuilding.collider.transform.TransformPoint(currentBuilding.collider.center), Vector3.Scale(currentBuilding.collider.size * 0.5f, currentBuilding.collider.transform.lossyScale), currentBuilding.collider.transform.rotation, ~ignoringMask, QueryTriggerInteraction.Ignore);
                     canBuild = overlaping.Length == 0;
-                    if (!canBuild)
+                    if (!canBuild || !currentBuilding.CheckMoney())
                     {
                         currentBuilding.SetRedMat();
                     }
@@ -61,25 +61,27 @@ public class PlayerBuilder : MonoBehaviour
                     
                 }
             }
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            if(currentBuilding != null && canBuild)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (currentBuilding.CheckMoney())
+                //print(1 + " " + (currentBuilding != null) + " " + canBuild);
+                if (currentBuilding != null && canBuild)
                 {
-                    GameManager.Instance.money -= currentBuilding.building.levelsCost[0];
-                    currentBuilding.GetComponent<Building>().Setup();
-                    currentBuilding = null;
+                    if (currentBuilding.CheckMoney())
+                    {
+                        GameManager.Instance.money -= currentBuilding.building.levelsCost[0];
+                        currentBuilding.GetComponent<Building>().Setup();
+                        currentBuilding = null;
+                    }
+
                 }
-                
+
             }
-            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                CancelBuilding();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CancelBuilding();
-        }
+        
     }
     public void CancelBuilding()
     {

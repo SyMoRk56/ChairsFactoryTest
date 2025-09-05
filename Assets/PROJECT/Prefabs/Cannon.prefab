@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6886856252135851922}
-  - component: {fileID: -8086829997020486126}
   - component: {fileID: -3243253294151311819}
+  - component: {fileID: 51711031835540629}
   m_Layer: 7
-  m_Name: Wall
+  m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,28 +36,6 @@ Transform:
   - {fileID: 8378948378088129795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8086829997020486126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169057353535737622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa3a1649e0eec754295da3cd92a32f8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHp: 0
-  building: {fileID: 11400000, guid: f7d911cd1e9aa8741b30089fc66b3e31, type: 2}
-  upgrade: 0
-  collider: {fileID: 2663569130778705732}
-  damageInterval: 1
-  decorLevel:
-  - decor:
-    - {fileID: 2245764350502946489}
-  - decor:
-    - {fileID: 2389441964372520559}
 --- !u!54 &-3243253294151311819
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -85,6 +63,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &51711031835540629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169057353535737622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a6ceea3390cac41aa79ce8cc40a01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 0
+  building: {fileID: 11400000, guid: ac985c6d62b160448b7530a9bce930d0, type: 2}
+  upgrade: 0
+  collider: {fileID: 2663569130778705732}
+  damageInterval: 1
+  damageUpgrades: 010000000200000004000000
 --- !u!1 &2245764350502946489
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +282,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.47, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6886856252135851922}

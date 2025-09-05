@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f360796e12d6e45b1e8431a5edc77f, type: 3}
-  m_Name: Wall
+  m_Script: {fileID: 11500000, guid: bdb43b39295acb4438230cc69b55f0eb, type: 3}
+  m_Name: Easy
   m_EditorClassIdentifier: 
-  buildingName: Wall
-  prefab: {fileID: 2169057353535737622, guid: 8f865fc171c4056429910128d6af0662, type: 3}
-  levelsHp: 190000004600000096000000
-  levelsCost: 03000000050000000a000000
+  prefab: {fileID: 890050590812543868, guid: 4dc50837d5db34c4096dd739b466c4de, type: 3}
+  hp: 10
+  moveSpeed: 1
+  moneyDrop: 5
+  damage: 1

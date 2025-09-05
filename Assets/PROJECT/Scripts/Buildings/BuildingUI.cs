@@ -28,10 +28,15 @@ public class BuildingUI : MonoBehaviour, IPointerClickHandler
        {
             if(player.selectedBuilding == building)
             {
+                print("Cancel");
                 player.CancelBuilding();
             }
             else
-            player.selectedBuilding = building;
+            {
+                player.CancelBuilding();
+                player.selectedBuilding = building;
+            }
+            
         }
         
     }
