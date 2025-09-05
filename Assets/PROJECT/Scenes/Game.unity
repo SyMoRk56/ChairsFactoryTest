@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e3efff1f71e4a48932d750fecb3f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 100
-  sensY: 100
+  sensX: 300
+  sensY: 300
   orientation: {fileID: 162964177}
 --- !u!1 &410087039
 GameObject:

@@ -27,9 +27,7 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(wave.delays[i]);
         }
         while(FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length > 0)
-        {
-
-           
+        {           
             yield return new WaitForSeconds(.5f);
         }
         GameManager.Instance.isWaveGoing = false;

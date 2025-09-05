@@ -18,17 +18,21 @@ public class Building : MonoBehaviour
 
     public void Start()
     {
+        bool col = collider == null;
         collider = GetComponentInChildren<BoxCollider>();
         renderers = GetComponentsInChildren<MeshRenderer>();
         foreach (var ren in renderers)
         {
             materials.Add(ren.material);
         }
+        if(col)
         collider.enabled = false;
     }
 
     public virtual void Setup()
     {
+        collider = GetComponentInChildren<BoxCollider>();
+
         collider.enabled = true;
         maxUpgrade = Mathf.Min(building.levelsHp.Count, building.levelsCost.Count);
         upgrade = Mathf.Clamp(upgrade, 0, maxUpgrade - 1);
@@ -54,6 +58,7 @@ public class Building : MonoBehaviour
 
     public void SetDefaultMat()
     {
+        if (renderers == null) return;
         for (int i = 0; i < renderers.Length; i++)
         {
             renderers[i].material = materials[i];

@@ -16,5 +16,9 @@ public class Wall : Building
     public override void Setup()
     {
         base.Setup();
+        foreach (var decor in decorLevel[upgrade - 1].decor)
+        {
+            decor.SetActive(true);
+        }
     }
 }
