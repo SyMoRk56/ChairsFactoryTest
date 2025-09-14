@@ -8,13 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public TMP_Text moneyText;
 
-    int m_money = 20;
+    int m_money = 50;
     public int money { get { return m_money; } set { moneyText.text = "Δενεγ: " + value.ToString(); m_money = value; } }
     public bool isWaveGoing;
     public Material greenMat, redMat;
     private void Awake()
     {
-        m_money = 20;
+        m_money = 50;
         Instance = this;
     }
     private void Start()
@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour
                 FindFirstObjectByType<PlayerBuilder>().CancelBuilding();
             }
         }
-        if (Input.GetKeyDown(KeyCode.I)) PlayerPrefs.DeleteAll();
+        if (Input.GetKeyDown(KeyCode.I)) 
+        { 
+            PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene(1);
+        }
         
     }
     public void Save()
@@ -64,7 +68,7 @@ public class GameManager : MonoBehaviour
     public void Load()
     {
         print(1);
-        money = PlayerPrefs.GetInt("Money", 20);
+        money = PlayerPrefs.GetInt("Money", 50);
         BuildingScriptableObject[] sc = Resources.LoadAll<BuildingScriptableObject>("");
         for (int i = 0; i < 1000; i++)
         {

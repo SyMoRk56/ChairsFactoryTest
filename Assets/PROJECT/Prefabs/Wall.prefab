@@ -51,6 +51,12 @@ MonoBehaviour:
   currentHp: 0
   building: {fileID: 11400000, guid: f7d911cd1e9aa8741b30089fc66b3e31, type: 2}
   upgrade: 0
+  materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   collider: {fileID: 2663569130778705732}
   damageInterval: 1
   decorLevel:

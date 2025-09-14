@@ -23,7 +23,8 @@ public class WaveSpawner : MonoBehaviour
         PlayerPrefs.SetInt("Wave", waveCount);
         for (int i = 0; i < wave.enemies.Count; i++)
         {
-            var enemy = Instantiate(wave.enemies[i].prefab, spawnPosition.position, Quaternion.identity);
+            Vector2 circle = Random.insideUnitCircle.normalized * 15;
+            var enemy = Instantiate(wave.enemies[i].prefab, new Vector3(circle.x, 0, circle.y), Quaternion.identity);
             yield return new WaitForSeconds(wave.delays[i]);
         }
         while(FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length > 0)

@@ -5,11 +5,19 @@ using UnityEngine;
 public class Cannon : Building
 {
     public List<int> damageUpgrades = new List<int>();
+    public List<Material> materialUpgrades = new List<Material>();
+    public Transform turret;
+    float shootTimer;
+    public GameObject bulletPrefab;
+    public MeshRenderer bodyRenderer;
 
-    
-    public IEnumerator Start()
+    private void Start()
     {
-        base.Start();
+        StartCoroutine(TowerRoutine());
+    }
+
+    private IEnumerator TowerRoutine()
+    {
         while (true)
         {
             var enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -27,10 +35,44 @@ public class Cannon : Building
                         closestEnemy = enemy;
                     }
                 }
-                if(minDist < 6)
-                closestEnemy.TakeDamage(damageUpgrades[upgrade]);
+
+                if (closestEnemy != null && minDist < 6f)
+                {
+                    Vector3 direction = closestEnemy.transform.position - turret.position;
+                    direction.y = 0;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+                    turret.rotation = Quaternion.Slerp(
+                        turret.rotation,
+                        targetRotation,
+                        Time.deltaTime * 15
+                    );
+                    if(shootTimer > 2)
+                    {
+                        if(Quaternion.Angle(turret.rotation, targetRotation) < 5)
+                        {
+                            shootTimer = 0;
+                            GameObject bullet = Instantiate(bulletPrefab, turret.transform.position, Quaternion.identity);
+                            bullet.GetComponent<Bullet>().Setup(turret.forward, damageUpgrades[upgrade]);
+                        }
+                        
+                    }
+                }
             }
-            yield return new WaitForSeconds(3);
+            shootTimer += Time.deltaTime;
+            yield return null;
         }
+    }
+    public override void OnUpgrade()
+    {
+        print("Cannon on upgrade: " + upgrade);
+        base.OnUpgrade();
+        bodyRenderer.material = materialUpgrades[upgrade];
+    }
+    public override void Setup()
+    {
+        base.Setup();
+        bodyRenderer.material = materialUpgrades[upgrade];
     }
 }

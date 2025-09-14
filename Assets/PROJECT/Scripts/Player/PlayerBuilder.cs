@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerBuilder : MonoBehaviour
@@ -19,7 +20,25 @@ public class PlayerBuilder : MonoBehaviour
             {
                 if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, 3, groundMask))
                 {
-                    if(currentBuilding == null)
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        //print(1 + " " + (currentBuilding != null) + " " + canBuild);
+                        if (currentBuilding != null && canBuild)
+                        {
+                            if (currentBuilding.CheckMoney())
+                            {
+                                GameManager.Instance.money -= currentBuilding.building.levelsCost[0];
+                                currentBuilding.Setup();
+                                currentBuilding = null;
+                                selectedBuilding = null;
+                                return;
+                                //currentBuilding.SetDefaultMat();
+                            }
+
+                        }
+
+                    }
+                    if (currentBuilding == null)
                     {
                         currentBuilding = Instantiate(selectedBuilding.prefab, new Vector3(), Quaternion.identity).GetComponent<Building>();
                     }
@@ -33,6 +52,11 @@ public class PlayerBuilder : MonoBehaviour
                     
                     currentBuilding.transform.rotation = Quaternion.Euler(0,Mathf.Round(cameraTransform.eulerAngles.y / 15) * 15 + Mathf.Round(rawRotate * 10 / 15) * 15, 0);
                     var overlaping = Physics.OverlapBox(currentBuilding.collider.transform.TransformPoint(currentBuilding.collider.center), Vector3.Scale(currentBuilding.collider.size * 0.5f, currentBuilding.collider.transform.lossyScale), currentBuilding.collider.transform.rotation, ~ignoringMask, QueryTriggerInteraction.Ignore);
+                    
+                    
+                    var a = overlaping.ToList();
+                    a.Remove(currentBuilding.collider); ;
+                    overlaping = a.ToArray();
                     canBuild = overlaping.Length == 0;
                     if (!canBuild || !currentBuilding.CheckMoney())
                     {
@@ -48,6 +72,7 @@ public class PlayerBuilder : MonoBehaviour
                     if(currentBuilding != null)
                     Destroy(currentBuilding.gameObject);
                 }
+                
             }
             else
             {
@@ -61,21 +86,7 @@ public class PlayerBuilder : MonoBehaviour
                     
                 }
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                //print(1 + " " + (currentBuilding != null) + " " + canBuild);
-                if (currentBuilding != null && canBuild)
-                {
-                    if (currentBuilding.CheckMoney())
-                    {
-                        GameManager.Instance.money -= currentBuilding.building.levelsCost[0];
-                        currentBuilding.GetComponent<Building>().Setup();
-                        currentBuilding = null;
-                    }
-
-                }
-
-            }
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CancelBuilding();

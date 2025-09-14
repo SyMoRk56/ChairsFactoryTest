@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdb43b39295acb4438230cc69b55f0eb, type: 3}
   m_Name: Hard
   m_EditorClassIdentifier: 
-  prefab: {fileID: 890050590812543868, guid: 4dc50837d5db34c4096dd739b466c4de, type: 3}
+  prefab: {fileID: 890050590812543868, guid: ec71119bd29d89640a114565f12b6ca3, type: 3}
   hp: 60
-  moveSpeed: 0.6
+  moveSpeed: 3
   moneyDrop: 13
   damage: 3

@@ -9,28 +9,27 @@ public class Building : MonoBehaviour
     public int upgrade = 0;
     int maxUpgrade;
     MeshRenderer[] renderers;
-    List<Material> materials = new();
+    public List<Material> materials = new();
     public BoxCollider collider;
 
     List<GameObject> touchingEnemies = new();
     float damageTimer = 0f;
     public float damageInterval = 1f;
-
+    public bool setuped;
     public void Start()
     {
+        print("BuildingStart");
         bool col = collider == null;
         collider = GetComponentInChildren<BoxCollider>();
         renderers = GetComponentsInChildren<MeshRenderer>();
-        foreach (var ren in renderers)
-        {
-            materials.Add(ren.material);
-        }
+        
         if(col)
         collider.enabled = false;
     }
 
     public virtual void Setup()
     {
+        print("setup;");
         collider = GetComponentInChildren<BoxCollider>();
 
         collider.enabled = true;
@@ -38,10 +37,12 @@ public class Building : MonoBehaviour
         upgrade = Mathf.Clamp(upgrade, 0, maxUpgrade - 1);
         currentHp = building.levelsHp[upgrade];
         SetDefaultMat();
+        setuped = true;
     }
 
     public void SetRedMat()
-    {
+    {        renderers = GetComponentsInChildren<MeshRenderer>();
+
         foreach (var renderer in renderers)
         {
             renderer.material = GameManager.Instance.redMat;
@@ -50,6 +51,8 @@ public class Building : MonoBehaviour
 
     public void SetGreenMat()
     {
+        renderers = GetComponentsInChildren<MeshRenderer>();
+
         foreach (var renderer in renderers)
         {
             renderer.material = GameManager.Instance.greenMat;
@@ -58,10 +61,14 @@ public class Building : MonoBehaviour
 
     public void SetDefaultMat()
     {
-        if (renderers == null) return;
-        for (int i = 0; i < renderers.Length; i++)
+        print("set default mat");
+        renderers = GetComponentsInChildren<MeshRenderer>();
+        var rend = renderers;
+        
+        for (int i = 0; i < rend.Length; i++)
         {
-            renderers[i].material = materials[i];
+            print(i + " " + renderers.Length);
+            rend[i].material = materials[i];
         }
     }
 
@@ -86,7 +93,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    public bool CheckMoney() => GameManager.Instance.money >= (!collider.enabled ? building.levelsCost[0] : building.levelsCost[upgrade + 1]);
+    public bool CheckMoney() => GameManager.Instance.money >= (!setuped ? building.levelsCost[0] : building.levelsCost[upgrade + 1]);
 
     public virtual void OnUpgrade()
     {
